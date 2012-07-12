@@ -1,0 +1,1 @@
+This plugin decorates every package of a plugin project that is exported with a '+' behind the package name.

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="Plugin Export Decorator">
+
+	<tstamp>
+		<format property="timestamp" pattern="yyyyMMddhhmm" locale="en,UK" />
+	</tstamp>
+
+	<target name="show-date">
+		<echo>${timestamp}</echo>
+	</target>
+
+	<target name="show-user">
+		<echo>${user.home}</echo>
+	</target>
+	
+	<target name="plugin_export" description="export the plugin">
+		<!-- ${user.home}/plugins will be the final target dir-->
+		<pde.exportPlugins destination="${user.home}" exportSource="true" exportType="directory" plugins="de.itemis.eclipse.exportdecorator" qualifier="${timestamp}" useJARFormat="true" />
+		<echo>Plugin Export started. Please wait until PDE Export is finished</echo>
+	</target>
+</project>

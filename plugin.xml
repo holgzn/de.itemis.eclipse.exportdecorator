@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.decorators">
+      <decorator
+            class="de.itemis.eclipse.exportdecorator.PluginExportDecorator"
+            id="de.itemis.eclipse.exportdecorator.pluginexport"
+            label="Plugin Export Decorator"
+            lightweight="false"
+            state="true">
+            <!--
+            <enablement>
+	            <objectClass
+	                  name="org.eclipse.jdt.core.IPackageDeclaration">
+	            </objectClass>
+            </enablement>
+            --> 
+      </decorator>
+   </extension>
+</plugin>

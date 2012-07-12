@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ExportDecorator
+Bundle-SymbolicName: de.itemis.eclipse.exportdecorator;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: de.itemis.eclipse.exportdecorator.Activator
+Bundle-Vendor: itemis AG
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.jdt.core,
+ org.eclipse.core.resources
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
