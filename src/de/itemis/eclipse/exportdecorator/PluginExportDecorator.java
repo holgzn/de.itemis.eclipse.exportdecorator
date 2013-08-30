@@ -10,6 +10,8 @@ package de.itemis.eclipse.exportdecorator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -25,14 +27,12 @@ import org.eclipse.swt.graphics.Image;
  */
 public class PluginExportDecorator implements ILabelDecorator /* IColorDecorator */{
 
-	public void addListener(final ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
+	private String currentProject;
 
+	public void addListener(final ILabelProviderListener listener) {
 	}
 
 	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public boolean isLabelProperty(final Object element, final String property) {
@@ -40,12 +40,9 @@ public class PluginExportDecorator implements ILabelDecorator /* IColorDecorator
 	}
 
 	public void removeListener(final ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public Image decorateImage(final Image image, final Object element) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -58,12 +55,23 @@ public class PluginExportDecorator implements ILabelDecorator /* IColorDecorator
 		return text;
 	}
 
+	private final List<String> exportedPackages = new ArrayList<String>();
+
 	/**
 	 * @param element
 	 * @return
 	 */
 	private boolean isExported(final IPackageFragment element) {
 		final IProject javaProject = element.getResource().getProject();
+		if (!javaProject.getName().equals(currentProject)) {
+			currentProject = javaProject.getName();
+			cacheExportedPackages(javaProject);
+		}
+		return exportedPackages.contains(element.getElementName());
+	}
+
+	private void cacheExportedPackages(final IProject javaProject) {
+		exportedPackages.clear();
 		final IFile findElement = javaProject.getFile(new Path("META-INF/MANIFEST.MF")); //$NON-NLS-1$
 		if (findElement.exists()) {
 			try {
@@ -83,8 +91,8 @@ public class PluginExportDecorator implements ILabelDecorator /* IColorDecorator
 						} else {
 							exportBlock = false;
 						}
-						if (element.getElementName().equals(packageName)) {
-							return true;
+						if (packageName != null) {
+							exportedPackages.add(packageName);
 						}
 					} else {
 						exportBlock = false;
@@ -92,13 +100,10 @@ public class PluginExportDecorator implements ILabelDecorator /* IColorDecorator
 				}
 				reader.close();
 			} catch (final CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (final IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return false;
 	}
 }
